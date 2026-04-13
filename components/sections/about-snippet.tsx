@@ -25,8 +25,8 @@ export function AboutSnippetSection() {
                 Not because I wanted to, but because I didn&apos;t know there was another
                 option. When I started to see it, I became obsessed. I wanted something
                 big. The problem is that wanting isn&apos;t enough, and it took me years to
-                understand that. My fears, my insecurities — everything I had accumulated
-                without noticing — were holding me back more than any external circumstance.
+                understand that. My fears, my insecurities and everything I had accumulated
+                without noticing, were holding me back more than any external circumstance.
                 One day I decided that was my responsibility. Mine alone.
               </p>
               <p className="text-[#0A0A0A] text-base leading-relaxed">
