@@ -1,7 +1,9 @@
 export type PostCategory =
   | "startups"
   | "technology"
-  | "personal";
+  | "personal"
+  | "society"
+  | "travel";
 
 export interface PostMeta {
   slug: string;
@@ -22,12 +24,16 @@ export const CATEGORIES: PostCategory[] = [
   "technology",
   "startups",
   "personal",
+  "society",
+  "travel",
 ];
 
 export const CATEGORY_LABELS: Record<PostCategory, string> = {
   technology: "technology",
   startups: "startups",
   personal: "personal",
+  society: "society",
+  travel: "travel",
 };
 
 export function formatDate(dateStr: string): string {
