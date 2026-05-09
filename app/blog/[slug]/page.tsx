@@ -77,9 +77,9 @@ export default function PostPage({ params }: PageProps) {
           <span className="text-xs tracking-wide text-[#6B6B6B] font-medium">
             {post.category}
           </span>
-          <span className="text-[#E5E5E5]">—</span>
+          <span className="text-[#E5E5E5]">·</span>
           <span className="text-xs text-[#6B6B6B]">{formatDate(post.date)}</span>
-          <span className="text-[#E5E5E5]">—</span>
+          <span className="text-[#E5E5E5]">·</span>
           <span className="text-xs text-[#6B6B6B]">{post.readingTime} read</span>
         </div>
 

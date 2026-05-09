@@ -25,7 +25,7 @@ export function Timeline({ entries }: TimelineProps) {
           const isRight = i % 2 === 0;
 
           return (
-            <FadeIn key={i} delay={i * 0.08}>
+            <FadeIn key={entry.title} delay={i * 0.08}>
               <div className="relative flex items-start">
                 {/* Dot marker */}
                 <div
@@ -87,6 +87,7 @@ export function Timeline({ entries }: TimelineProps) {
                           src={entry.image}
                           alt={entry.title}
                           fill
+                          sizes="(max-width: 768px) calc(100vw - 2.5rem), 50vw"
                           className="object-cover object-center"
                         />
                       </div>

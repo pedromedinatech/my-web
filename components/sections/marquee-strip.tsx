@@ -25,7 +25,7 @@ export function MarqueeStrip() {
       >
         {[...track, ...track].map((item, i) => (
           <span
-            key={i}
+            key={`${item}-${i}`}
             className="text-xs tracking-widest font-bold text-white/70 flex-shrink-0"
           >
             {item}

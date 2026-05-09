@@ -39,8 +39,11 @@ export function getAllPosts(): PostMeta[] {
     .filter((f) => /\.mdx?$/.test(f));
 
   const posts = files
-    .map(parsePostFile)
-    .filter((p): p is PostMeta => p !== null)
+    .reduce<PostMeta[]>((acc, filename) => {
+      const post = parsePostFile(filename);
+      if (post !== null) acc.push(post);
+      return acc;
+    }, [])
     .sort((a, b) => (a.date > b.date ? -1 : 1));
 
   return posts;

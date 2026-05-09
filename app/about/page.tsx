@@ -113,6 +113,7 @@ export default function AboutPage() {
                 src="/images/pedro/about-whoami.JPG"
                 alt="Pedro Medina"
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover object-bottom"
                 priority
               />
@@ -170,6 +171,7 @@ export default function AboutPage() {
                     src={item.src}
                     alt={item.label}
                     fill
+                    sizes="(max-width: 768px) 50vw, 33vw"
                     className={`object-cover ${item.position ?? "object-center"} transition-transform duration-700 group-hover:scale-105`}
                   />
                   <div className="absolute inset-0 bg-black/30" />
