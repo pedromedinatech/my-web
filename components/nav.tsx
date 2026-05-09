@@ -25,7 +25,7 @@ export function Nav() {
   const pathname = usePathname();
 
   const isHome = pathname === "/";
-  const textColor = isHome ? "text-white" : "text-[#0A0A0A]";
+  const textColor = isHome && !scrolled ? "text-white" : "text-[#0A0A0A]";
   const iconColor = isHome && !scrolled ? "text-white" : "text-[#0A0A0A]";
 
   useEffect(() => { setMounted(true); }, []);
