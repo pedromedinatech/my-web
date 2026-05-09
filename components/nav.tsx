@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { X, List, ArrowUpRight } from "@phosphor-icons/react";
 
 const pageLinks = [
+  { href: "/", label: "home" },
   { href: "/about", label: "about" },
   { href: "/blog", label: "blog" },
 ];
