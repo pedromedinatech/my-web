@@ -3,54 +3,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/fade-in";
-import { Timeline, type TimelineEntry } from "@/components/timeline";
 
 export const metadata: Metadata = {
   title: "About",
   description: "Who Pedro Medina is. A record of what he builds and what he learns.",
 };
-
-const path: TimelineEntry[] = [
-  {
-    year: "2005 — 2017",
-    title: "[the happiest guy on earth]",
-    text: "Grew up in Córdoba, a small city in the south of Spain. Had the kindest childhood, great and loving parents raised me. \
-    I look back at those days, where nothing could stop me from doing the things I wanted. A child's mind is what I already tell everyone \
-    is an adult's goal. Not being afraid of the outcome, just going where curiosity carries you. The happiest I have ever been.",
-    image: "/images/pedro/about-the-happiest.JPG",
-  },
-  {
-    year: "2017 — 2023",
-    title: "[going with the flow]",
-    text: "Soon you find out you are growing up, new things come into your life. Without certain traits, this can lead you to doing \
-    things you don't actually like, but others do. And as a byproduct, you fit the group, at the cost of losing yourself. I barely have \
-    any remider of that period, just going with the flow, doing the things I was supposed to, always dictated by others. I admit that I kinda \
-    hate my teens, seeing it from my actual perspective, but that built who I am today. I had fun, not everything was bad, but it was not me at all.",
-    image: "/images/pedro/about-going-with-the-flow.png",
-  },
-  {
-    year: "2023 — 2025",
-    title: "[the wake-up call]",
-    text: "They say you are who you are surrounded by. I started meeting the right people, some casually, some intentionally. \
-    Something clicked for me. I put myself in rooms aligned with what I was really trying to be. I woke up from being passive to \
-    whatever happened at me, to putting myself intentionally in places where I made things happen. I realized how much was possible \
-    and how many things I had beeing doing wrong. My life changed apparently, it was a new me. But something was still off, there was \
-    a void. It was the gap between who I realized I could be, and who I was at that moment. I did not know what I liked (still don't), \
-    and I was constantly paralyzed, did not do many things just because I overthought it too much. Changed a lot of habits. Everybody told \
-    me I had potential, but seeing it did not match my reality started to curse me. ",
-    image: "/images/pedro/the-wake-up-call.JPG",
-  },
-  {
-    year: "2025 — now",
-    title: "[on my way]",
-    text: "I moved 4000 km far away from home. First time I was alone in a whole different country, without my family. It initially hurted me \
-    but I lowkey knew now I was free to do everything I hadn't been able before. I started creating videos, and started a blog. \
-    I investing on myself, trusting people a few steps ahead of me to help me get where I want to be. I started side-projects too. \
-    Since that everything has changed, now I see myself moving towards something, not paralyzed anymore. Follow along on this journey, \
-    which I am sure will carry me to a better place.",
-    image: "/images/pedro/on-my-way.JPG",
-  },
-];
 
 const drives = [
   { n: "01", text: "Trying to be my most authentic self every single day." },
@@ -63,7 +20,7 @@ const interests = [
   { label: "[startups]", src: "/images/startups.jpg" },
   { label: "[tech]",     src: "/images/technology.jpg" },
   { label: "[sport]",    src: "/images/sports.JPG", position: "object-[center_20%]" },
-  { label: "[travel]",   src: "/images/travel.jpg" },
+  { label: "[travel]",   src: "/images/travelling.webp" },
   { label: "[reading]",  src: "/images/read.jpg" },
   { label: "[people]",   src: "/images/people.JPG", position: "object-[center_50%]" },
 ];
@@ -110,7 +67,7 @@ export default function AboutPage() {
           <FadeIn delay={0.12}>
             <div className="relative aspect-video overflow-hidden rounded-xl bg-[#F5F5F5]">
               <Image
-                src="/images/pedro/about-whoami.JPG"
+                src="/images/pedro/about-whoami-2.JPG"
                 alt="Pedro Medina"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -143,16 +100,6 @@ export default function AboutPage() {
             </StaggerContainer>
           </FadeIn>
         </div>
-      </section>
-
-      {/* ── [my path] ── */}
-      <section className="border-t border-[#E5E5E5] py-16 md:py-20">
-        <FadeIn>
-          <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-14 md:mb-20">
-            [my path]
-          </h2>
-        </FadeIn>
-        <Timeline entries={path} />
       </section>
 
       {/* ── [what i like] ── */}

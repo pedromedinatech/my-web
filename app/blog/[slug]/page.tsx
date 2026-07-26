@@ -81,6 +81,20 @@ export default function PostPage({ params }: PageProps) {
           <span className="text-xs text-[#6B6B6B]">{formatDate(post.date)}</span>
           <span className="text-[#E5E5E5]">·</span>
           <span className="text-xs text-[#6B6B6B]">{post.readingTime} read</span>
+          {post.substackUrl && (
+            <>
+              <span className="text-[#E5E5E5]">·</span>
+              <a
+                href={post.substackUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs tracking-wide font-medium inline-flex items-center gap-1.5 hover:opacity-60 transition-opacity duration-200"
+              >
+                Read on Substack
+                <ArrowUpRight size={11} weight="bold" />
+              </a>
+            </>
+          )}
         </div>
 
         <h1 className="text-xl md:text-2xl font-black tracking-tighter leading-tight">

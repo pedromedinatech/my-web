@@ -26,6 +26,7 @@ function parsePostFile(filename: string): PostMeta | null {
     category: (data.category ?? "personal") as PostCategory,
     excerpt: data.excerpt ?? "",
     coverImage: data.coverImage,
+    substackUrl: data.substackUrl,
     published: data.published ?? false,
     readingTime: `${minutes} min`,
   };
@@ -71,6 +72,7 @@ export function getPostBySlug(slug: string): Post | null {
       category: (data.category ?? "personal") as PostCategory,
       excerpt: data.excerpt ?? "",
       coverImage: data.coverImage,
+      substackUrl: data.substackUrl,
       published: data.published ?? false,
       readingTime: `${minutes} min`,
       content,

@@ -12,6 +12,7 @@ export interface PostMeta {
   category: PostCategory;
   excerpt: string;
   coverImage?: string;
+  substackUrl?: string;
   published: boolean;
   readingTime: string;
 }

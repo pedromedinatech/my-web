@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { getAllPosts } from "@/lib/posts";
-import { CATEGORIES } from "@/lib/post-types";
 import { BlogListClient } from "./blog-list-client";
 
 export const metadata: Metadata = {
@@ -35,7 +34,7 @@ export default function BlogPage() {
         </p>
       </div>
 
-      <BlogListClient posts={posts} categories={CATEGORIES} />
+      <BlogListClient posts={posts} />
     </div>
   );
 }

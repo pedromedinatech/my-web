@@ -9,6 +9,8 @@ const pageLinks = [
   { href: "/", label: "home" },
   { href: "/about", label: "about" },
   { href: "/blog", label: "blog" },
+  { href: "/read", label: "read" },
+  { href: "/now", label: "now" },
 ];
 
 const contactLinks = [
@@ -21,24 +23,61 @@ const contactLinks = [
 export function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [onDark, setOnDark] = useState(false);
   const pathname = usePathname();
 
   const isHome = pathname === "/";
-  const textColor = isHome && !scrolled ? "text-white" : "text-[#0A0A0A]";
-  const iconColor = isHome && !scrolled ? "text-white" : "text-[#0A0A0A]";
 
   useEffect(() => { setMounted(true); }, []);
   useEffect(() => { setMenuOpen(false); }, [pathname]);
+
+  // Determine nav color based on which section sits behind it
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    const NAV_Y = 28; // top-7 = 1.75rem ≈ 28px
+
+    const compute = () => {
+      const y = window.scrollY;
+
+      // Home page: hero is full viewport height (dark), then white sections, then dark footer
+      // Other pages: white content, then dark footer
+      if (isHome) {
+        const heroBottom = window.innerHeight;
+        if (y + NAV_Y < heroBottom - 40) {
+          setOnDark(true);
+          return;
+        }
+      }
+
+      // Check if nav overlaps the footer (dark bg on all pages)
+      const footer = document.querySelector("footer");
+      if (footer) {
+        const footerTop = footer.getBoundingClientRect().top;
+        if (footerTop <= NAV_Y + 60) {
+          setOnDark(true);
+          return;
+        }
+      }
+
+      // Everything else: white background
+      setOnDark(false);
+    };
+
+    compute();
+    window.addEventListener("scroll", compute, { passive: true });
+    window.addEventListener("resize", compute, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", compute);
+      window.removeEventListener("resize", compute);
+    };
+  }, [isHome]);
+
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
+
+  const textColor = onDark ? "text-white" : "text-[#0A0A0A]";
+  const iconColor = onDark ? "text-white" : "text-[#0A0A0A]";
 
   return (
     <>
@@ -79,7 +118,7 @@ export function Nav() {
             style={{ fontWeight: 300, fontSize: "15px", letterSpacing: "0" }}
             className={`leading-relaxed opacity-30 ${textColor}`}
           >
-            based in cordoba, spain
+            based in sevilla, spain
           </span>
         </div>
       </nav>

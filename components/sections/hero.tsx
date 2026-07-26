@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowUpRight } from "@phosphor-icons/react";
 
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 
@@ -61,6 +63,50 @@ export function HeroSection() {
             </span>
           ))}
         </h1>
+
+        {/* ── Subtitle ── */}
+        <div className="overflow-hidden mt-4">
+          <motion.span
+            className="block text-white whitespace-nowrap"
+            style={{
+              fontSize: "clamp(0.875rem, 1.5vw, 1.125rem)",
+              fontWeight: 300,
+              opacity: 0.7,
+            }}
+            initial={{ y: "105%" }}
+            animate={{ y: "0%" }}
+            transition={{ duration: 0.75, delay: 0.35, ease: EASE_OUT }}
+          >
+            Studying computer science, working at a startup, and writing about what I learn along the way.
+          </motion.span>
+        </div>
+
+        {/* ── CTA links ── */}
+        <motion.div
+          className="flex items-center gap-6 mt-5"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7, ease: EASE_OUT }}
+        >
+          <a
+            href="#about"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="inline-flex items-center gap-1 text-sm font-medium tracking-wide text-white/80 hover:text-white transition-colors"
+          >
+            About me
+            <ArrowUpRight size={14} weight="bold" />
+          </a>
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-1 text-sm font-medium tracking-wide text-white/80 hover:text-white transition-colors"
+          >
+            Read my writing
+            <ArrowUpRight size={14} weight="bold" />
+          </Link>
+        </motion.div>
       </div>
 
       {/* ── Scroll indicator ── */}
