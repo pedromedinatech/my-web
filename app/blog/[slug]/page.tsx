@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { BlogCard } from "@/components/blog-card";
+import { SubstackLogo } from "@/components/substack-logo";
 
 interface PageProps {
   params: { slug: string };
@@ -73,7 +74,7 @@ export default function PostPage({ params }: PageProps) {
 
       {/* Post header */}
       <header className="mb-12 max-w-[720px]">
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-6 whitespace-nowrap">
           <span className="text-xs tracking-wide text-[#6B6B6B] font-medium">
             {post.category}
           </span>
@@ -90,6 +91,7 @@ export default function PostPage({ params }: PageProps) {
                 rel="noopener noreferrer"
                 className="text-xs tracking-wide font-medium inline-flex items-center gap-1.5 hover:opacity-60 transition-opacity duration-200"
               >
+                <SubstackLogo />
                 Read on Substack
                 <ArrowUpRight size={11} weight="bold" />
               </a>
