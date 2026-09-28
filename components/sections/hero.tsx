@@ -1,18 +1,34 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "@phosphor-icons/react";
-
-const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 
 const LINES = [
   { text: "i am", muted: false },
   { text: "pedro medina", muted: false },
 ];
 
+/*
+ * The name and subtitle are rendered visible from the server HTML (no entrance
+ * animation), so a visitor sees whose site this is on first paint.
+ *
+ * Name size: bounded by width (12vw keeps "pedro medina" on one line on small
+ * phones) and by height (16vh keeps the whole block above the fold on short
+ * laptop screens), between 2.5rem and 11rem.
+ */
+const NAME_FONT_SIZE = "clamp(2.5rem, min(12vw, 16vh), 11rem)";
+
 export function HeroSection() {
+  const reduceMotion = useReducedMotion();
+  // Starts false on server and client so hydration matches.
+  const [animateIndicator, setAnimateIndicator] = useState(false);
+  useEffect(() => {
+    setAnimateIndicator(reduceMotion === false);
+  }, [reduceMotion]);
+
   return (
     <section className="relative min-h-[100dvh] w-full overflow-hidden">
 
@@ -28,71 +44,58 @@ export function HeroSection() {
         sizes="100vw"
       />
 
-      {/* ── Overlay for text legibility ── */}
+      {/* ── Scrim: darker at the bottom where the text sits ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0.1) 100%)",
+            "linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 30%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0.08) 100%)",
         }}
       />
 
       {/* ── Display text — bottom-left ── */}
-      <div className="absolute bottom-10 left-6 md:bottom-14 md:left-10 lg:left-16 z-10 select-none">
+      <div className="absolute bottom-10 left-6 right-6 md:right-auto md:bottom-14 md:left-10 lg:left-16 z-10 select-none">
         <h1
           aria-label="I am Pedro Medina, building in public"
-          className="overflow-hidden"
           style={{
-            fontSize: "clamp(3.5rem, 10vw, 11rem)",
+            fontSize: NAME_FONT_SIZE,
             lineHeight: 0.9,
             fontWeight: 800,
             letterSpacing: "-0.03em",
           }}
         >
-          {LINES.map((line, i) => (
-            <span key={line.text} className="block overflow-hidden">
-              <motion.span
-                className="block"
-                style={{ color: line.muted ? "rgba(255,255,255,0.3)" : "#ffffff" }}
-                initial={{ y: "105%" }}
-                animate={{ y: "0%" }}
-                transition={{ duration: 0.75, delay: 0.1 + i * 0.1, ease: EASE_OUT }}
-              >
-                {line.text}
-              </motion.span>
+          {LINES.map((line) => (
+            <span
+              key={line.text}
+              className="block whitespace-nowrap"
+              style={{ color: line.muted ? "rgba(255,255,255,0.3)" : "#ffffff" }}
+            >
+              {line.text}
             </span>
           ))}
         </h1>
 
         {/* ── Subtitle ── */}
-        <div className="overflow-hidden mt-4">
-          <motion.span
-            className="block text-white whitespace-nowrap"
-            style={{
-              fontSize: "clamp(0.875rem, 1.5vw, 1.125rem)",
-              fontWeight: 300,
-              opacity: 0.7,
-            }}
-            initial={{ y: "105%" }}
-            animate={{ y: "0%" }}
-            transition={{ duration: 0.75, delay: 0.35, ease: EASE_OUT }}
-          >
-            Studying computer science, working at a startup, and writing about what I learn along the way.
-          </motion.span>
-        </div>
+        <p
+          className="mt-4 max-w-[34ch] md:max-w-none md:whitespace-nowrap text-white/85"
+          style={{
+            fontSize: "clamp(0.875rem, 1.5vw, 1.125rem)",
+            lineHeight: 1.5,
+            fontWeight: 400,
+          }}
+        >
+          Studying computer science, working at a startup, and writing about what I learn along the way.
+        </p>
 
         {/* ── CTA links ── */}
-        <motion.div
-          className="flex items-center gap-6 mt-5"
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7, ease: EASE_OUT }}
-        >
+        <div className="flex items-center gap-6 mt-5">
           <a
             href="#about"
             onClick={(e) => {
               e.preventDefault();
-              document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+              document.getElementById("about")?.scrollIntoView({
+                behavior: reduceMotion ? "auto" : "smooth",
+              });
             }}
             className="inline-flex items-center gap-1 text-sm font-medium tracking-wide text-white/80 hover:text-white transition-colors"
           >
@@ -106,28 +109,36 @@ export function HeroSection() {
             Read my writing
             <ArrowUpRight size={14} weight="bold" />
           </Link>
-        </motion.div>
+        </div>
       </div>
 
-      {/* ── Scroll indicator ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.6, ease: "easeOut" }}
+      {/* ── Scroll indicator (decorative). Static line in the server HTML and
+          with reduced motion; loops only after hydration when motion is OK. ── */}
+      <div
+        aria-hidden
         className="absolute bottom-10 right-6 md:bottom-14 md:right-10 lg:right-16 z-10"
       >
         <motion.span
           className="block w-px bg-white/30"
-          animate={{ scaleY: [0, 1, 1, 0], y: ["0%", "0%", "0%", "100%"] }}
-          transition={{
-            repeat: Infinity,
-            duration: 2.6,
-            ease: "easeInOut",
-            times: [0, 0.3, 0.7, 1],
-          }}
+          initial={false}
+          animate={
+            animateIndicator
+              ? { scaleY: [0, 1, 1, 0], y: ["0%", "0%", "0%", "100%"] }
+              : { scaleY: 1, y: "0%" }
+          }
+          transition={
+            animateIndicator
+              ? {
+                  repeat: Infinity,
+                  duration: 2.6,
+                  ease: "easeInOut",
+                  times: [0, 0.3, 0.7, 1],
+                }
+              : { duration: 0 }
+          }
           style={{ height: 44, transformOrigin: "top" }}
         />
-      </motion.div>
+      </div>
     </section>
   );
 }
