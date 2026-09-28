@@ -25,9 +25,10 @@ const learning = [
 
 const reading = {
   current: [
-    { title: "Psycho-Cybernetics", author: "Maxwell Maltz" },
+    { title: "The Count of Monte Cristo", author: "Alexandre Dumas" },
   ],
   recent: [
+    { title: "Psycho-Cybernetics", author: "Maxwell Maltz" },
     { title: "Tuesdays with Morrie", author: "Mitch Albom" },
     { title: "Outliers", author: "Malcolm Gladwell" },
   ],
