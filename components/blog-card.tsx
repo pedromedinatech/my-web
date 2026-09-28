@@ -13,14 +13,9 @@ interface BlogCardProps {
 export function BlogCard({ post, index = 0 }: BlogCardProps) {
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
+      initial={false}
       animate={{ opacity: 1, y: 0 }}
-      transition={{
-        type: "spring",
-        stiffness: 80,
-        damping: 20,
-        delay: index * 0.07,
-      }}
+      data-index={index}
       className="group"
     >
       <Link href={`/blog/${post.slug}`} className="block">
