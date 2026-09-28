@@ -1,15 +1,20 @@
 interface SubstackLogoProps {
   size?: number;
   className?: string;
+  color?: string;
 }
 
-export function SubstackLogo({ size = 13, className = "" }: SubstackLogoProps) {
+export function SubstackLogo({
+  size = 13,
+  className = "",
+  color = "#FF6719",
+}: SubstackLogoProps) {
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="#FF6719"
+      fill={color}
       aria-hidden="true"
       className={className}
     >

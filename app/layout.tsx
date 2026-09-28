@@ -19,6 +19,11 @@ export const metadata: Metadata = {
   description:
     "Building in tech. Learning in public.",
   metadataBase: new URL("https://iampedromedina.com"),
+  alternates: {
+    types: {
+      "application/rss+xml": "https://iampedromedina.com/rss.xml",
+    },
+  },
   openGraph: {
     type: "website",
     locale: "en_US",

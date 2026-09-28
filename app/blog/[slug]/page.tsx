@@ -7,6 +7,7 @@ import Image from "next/image";
 import { ArrowLeft, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { BlogCard } from "@/components/blog-card";
 import { SubstackLogo } from "@/components/substack-logo";
+import { SubscribeCard } from "@/components/subscribe-card";
 
 interface PageProps {
   params: { slug: string };
@@ -127,6 +128,9 @@ export default function PostPage({ params }: PageProps) {
       <div className="prose-pedro">
         <MDXRemote source={post.content} />
       </div>
+
+      {/* Subscribe */}
+      <SubscribeCard substackUrl={post.substackUrl} />
 
       {/* Related posts */}
       {related.length > 0 && (
