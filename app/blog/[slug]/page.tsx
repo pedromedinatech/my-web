@@ -31,9 +31,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       type: "article",
       publishedTime: post.date,
       authors: ["Pedro Medina"],
-      images: post.coverImage
-        ? [{ url: post.coverImage, width: 1200, height: 630, alt: post.title }]
-        : [{ url: "/images/pedro/og-default.jpg", width: 1200, height: 630 }],
+      // images come from ./opengraph-image.tsx (file convention); twitter
+      // inherits them because no twitter.images is set here.
     },
     twitter: {
       card: "summary_large_image",
