@@ -8,24 +8,27 @@ export const metadata: Metadata = {
   description: "What I'm doing now — updated every few months.",
 };
 
-const LAST_UPDATED = "July 2026";
+const LAST_UPDATED = "September 2026";
 
 const sideQuests = [
+  "Training for a half marathon in November",
+  "Writing one essay every week, here and on Substack",
   "Taking a solo trip to the mountains",
-  "Writing blogs",
 ];
 
 const learning = [
   "Self-image dictates your reality",
   "Learning to sell makes you a better person",
   "Consume less, create more",
+  "Give before you take",
 ];
 
 const reading = {
   current: [
-    { title: "Psycho-Cybernetics", author: "Maxwell Maltz" },
+    { title: "The Count of Monte Cristo", author: "Alexandre Dumas" },
   ],
   recent: [
+    { title: "Psycho-Cybernetics", author: "Maxwell Maltz" },
     { title: "Tuesdays with Morrie", author: "Mitch Albom" },
     { title: "Outliers", author: "Malcolm Gladwell" },
   ],
