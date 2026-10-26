@@ -113,7 +113,7 @@ export default function ReadPage() {
             <ArrowUpRight size={11} weight="bold" />
           </Link>
         </div>
-        <p className="text-[#6B6B6B] text-base max-w-md">
+        <p className="text-muted text-base max-w-md">
           Books, articles, and resources I recommend.
         </p>
       </div>
@@ -125,7 +125,7 @@ export default function ReadPage() {
             <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-2">
               {category.title}
             </h2>
-            <p className="text-[#6B6B6B] text-base mb-8">
+            <p className="text-muted text-base mb-8">
               {category.subtitle}
             </p>
           </FadeIn>
@@ -134,7 +134,7 @@ export default function ReadPage() {
             <StaggerContainer staggerDelay={0.06}>
               {category.items.map((item) => (
                 <StaggerItem key={item.title}>
-                  <div className="flex items-center justify-between py-4 border-b border-[#E5E5E5]">
+                  <div className="flex items-center justify-between py-4 border-b border-line">
                     <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-2">
                       {item.url ? (
                         <a
@@ -149,7 +149,7 @@ export default function ReadPage() {
                       ) : (
                         <span className="font-bold text-base">{item.title}</span>
                       )}
-                      <span className="text-[#6B6B6B] text-sm">
+                      <span className="text-muted text-sm">
                         {item.author}
                       </span>
                     </div>
@@ -157,7 +157,7 @@ export default function ReadPage() {
                     {item.myTake && (
                       <Link
                         href={item.myTake.href}
-                        className="text-xs tracking-wide font-medium text-[#6B6B6B] hover:text-[#0A0A0A] transition-colors duration-200 inline-flex items-center gap-1 shrink-0 ml-4"
+                        className="text-xs tracking-wide font-medium text-muted hover:text-ink transition-colors duration-200 inline-flex items-center gap-1 shrink-0 ml-4"
                       >
                         {item.myTake.label}
                         <ArrowUpRight size={10} weight="bold" />

@@ -54,7 +54,7 @@ export default function PostPage({ params }: PageProps) {
       <div className="flex items-center justify-between mb-12">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-xs tracking-wide text-[#6B6B6B] hover:text-[#0A0A0A] transition-colors duration-200 group"
+          className="inline-flex items-center gap-2 text-xs tracking-wide text-muted hover:text-ink transition-colors duration-200 group"
         >
           <ArrowLeft
             size={12}
@@ -75,16 +75,16 @@ export default function PostPage({ params }: PageProps) {
       {/* Post header */}
       <header className="mb-12 max-w-[720px]">
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-6 whitespace-nowrap">
-          <span className="text-xs tracking-wide text-[#6B6B6B] font-medium">
+          <span className="text-xs tracking-wide text-muted font-medium">
             {post.category}
           </span>
-          <span className="text-[#E5E5E5]">·</span>
-          <span className="text-xs text-[#6B6B6B]">{formatDate(post.date)}</span>
-          <span className="text-[#E5E5E5]">·</span>
-          <span className="text-xs text-[#6B6B6B]">{post.readingTime} read</span>
+          <span className="text-line">·</span>
+          <span className="text-xs text-muted">{formatDate(post.date)}</span>
+          <span className="text-line">·</span>
+          <span className="text-xs text-muted">{post.readingTime} read</span>
           {post.substackUrl && (
             <>
-              <span className="text-[#E5E5E5]">·</span>
+              <span className="text-line">·</span>
               <a
                 href={post.substackUrl}
                 target="_blank"
@@ -104,7 +104,7 @@ export default function PostPage({ params }: PageProps) {
         </h1>
 
         {post.excerpt && (
-          <p className="mt-4 text-base text-[#6B6B6B] leading-relaxed">
+          <p className="mt-4 text-base text-muted leading-relaxed">
             {post.excerpt}
           </p>
         )}
@@ -112,15 +112,22 @@ export default function PostPage({ params }: PageProps) {
 
       {/* Cover image */}
       {post.coverImage && (
-        <div className="relative w-full max-w-[720px] mx-auto aspect-[16/9] mb-14 overflow-hidden rounded-xl">
-          <Image
-            src={post.coverImage}
-            alt={post.title}
-            fill
-            className="object-cover object-center"
-            priority
-          />
-        </div>
+        <figure className="w-full max-w-[720px] mx-auto mb-14">
+          <div className="relative w-full aspect-[16/9] overflow-hidden rounded-xl">
+            <Image
+              src={post.coverImage}
+              alt={post.coverCaption ?? post.title}
+              fill
+              className="object-cover object-center"
+              priority
+            />
+          </div>
+          {post.coverCaption && (
+            <figcaption className="mt-3 text-[13px] leading-snug text-muted">
+              {post.coverCaption}
+            </figcaption>
+          )}
+        </figure>
       )}
 
       {/* Post body */}
@@ -133,8 +140,8 @@ export default function PostPage({ params }: PageProps) {
 
       {/* Related posts */}
       {related.length > 0 && (
-        <section className="mt-24 pt-12 border-t border-[#E5E5E5]">
-          <h2 className="text-xs tracking-wide font-bold mb-10 text-[#6B6B6B]">
+        <section className="mt-24 pt-12 border-t border-line">
+          <h2 className="text-xs tracking-wide font-bold mb-10 text-muted">
             next posts
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10">

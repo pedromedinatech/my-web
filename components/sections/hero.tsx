@@ -18,6 +18,9 @@ const LINES = [
  * Name size: bounded by width (12vw keeps "pedro medina" on one line on small
  * phones) and by height (16vh keeps the whole block above the fold on short
  * laptop screens), between 2.5rem and 11rem.
+ *
+ * The photo no longer bleeds to the edges: it sits inside a thin paper margin
+ * (12px on phones, 24px from md), like a print laid on the page.
  */
 const NAME_FONT_SIZE = "clamp(2.5rem, min(12vw, 16vh), 11rem)";
 
@@ -30,9 +33,10 @@ export function HeroSection() {
   }, [reduceMotion]);
 
   return (
-    <section className="relative min-h-[100dvh] w-full overflow-hidden">
+    <section className="p-3 md:p-6">
+      <div data-nav-on-dark className="relative h-[calc(100dvh-1.5rem)] md:h-[calc(100dvh-3rem)] min-h-[520px] w-full overflow-hidden rounded-[6px]">
 
-      {/* ── Full-bleed image ── */}
+      {/* ── Framed image ── */}
       <Image
         src="/images/hero.JPG"
         alt=""
@@ -119,7 +123,7 @@ export function HeroSection() {
         className="absolute bottom-10 right-6 md:bottom-14 md:right-10 lg:right-16 z-10"
       >
         <motion.span
-          className="block w-px bg-white/30"
+          className="block w-px bg-paper/30"
           initial={false}
           animate={
             animateIndicator
@@ -138,6 +142,7 @@ export function HeroSection() {
           }
           style={{ height: 44, transformOrigin: "top" }}
         />
+      </div>
       </div>
     </section>
   );

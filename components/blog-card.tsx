@@ -22,14 +22,14 @@ export function BlogCard({ post, index = 0 }: BlogCardProps) {
         <motion.div
           whileHover={{ y: -4 }}
           transition={{ type: "spring", stiffness: 200, damping: 30 }}
-          className="border-t border-[#E5E5E5] pt-5 pb-6"
+          className="border-t border-line pt-5 pb-6"
         >
           {/* Top meta */}
           <div className="flex items-center justify-between mb-3">
-            <span className="text-xs tracking-wide text-[#6B6B6B] font-medium">
+            <span className="text-xs tracking-wide text-muted font-medium">
               {post.category}
             </span>
-            <span className="text-xs text-[#6B6B6B]">
+            <span className="text-xs text-muted">
               {post.readingTime} read
             </span>
           </div>
@@ -41,13 +41,13 @@ export function BlogCard({ post, index = 0 }: BlogCardProps) {
 
           {/* Excerpt */}
           {post.excerpt && (
-            <p className="text-sm text-[#6B6B6B] leading-relaxed line-clamp-2 mb-4">
+            <p className="text-sm text-muted leading-relaxed line-clamp-2 mb-4">
               {post.excerpt}
             </p>
           )}
 
           {/* Date */}
-          <span className="text-xs text-[#6B6B6B]">{formatDate(post.date)}</span>
+          <span className="text-xs text-muted">{formatDate(post.date)}</span>
         </motion.div>
       </Link>
     </motion.article>

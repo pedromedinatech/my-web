@@ -21,8 +21,8 @@ export function BlogListClient({ posts }: BlogListClientProps) {
   return (
     <>
       {/* Post count */}
-      <div className="flex items-center justify-end mb-12 border-b border-[#E5E5E5] pb-6">
-        <span className="text-xs text-[#6B6B6B] tracking-wide">
+      <div className="flex items-center justify-end mb-12 border-b border-line pb-6">
+        <span className="text-xs text-muted tracking-wide">
           {posts.length} {posts.length === 1 ? "post" : "posts"}
         </span>
       </div>
@@ -44,7 +44,7 @@ export function BlogListClient({ posts }: BlogListClientProps) {
         <div className="mt-16">
           <button
             onClick={() => setPage((p) => p + 1)}
-            className="text-xs tracking-wide font-medium text-[#6B6B6B] hover:text-[#0A0A0A] transition-colors duration-200 link-underline"
+            className="text-xs tracking-wide font-medium text-muted hover:text-ink transition-colors duration-200 link-underline"
           >
             load more
           </button>

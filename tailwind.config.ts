@@ -11,13 +11,19 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-inter)", "Helvetica Neue", "Arial", "sans-serif"],
         display: ["var(--font-inter)", "Helvetica Neue", "Arial", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "Menlo", "Consolas", "monospace"],
       },
       colors: {
-        bg: "#FFFFFF",
-        text: "#0A0A0A",
-        muted: "#6B6B6B",
-        border: "#E5E5E5",
-        hover: "#F5F5F5",
+        // Mirrors the CSS variables in app/globals.css
+        paper: "rgb(var(--rgb-paper) / <alpha-value>)",
+        ink: "rgb(var(--rgb-ink) / <alpha-value>)",
+        muted: "rgb(var(--rgb-muted) / <alpha-value>)",
+        line: "rgb(var(--rgb-line) / <alpha-value>)",
+        hover: "rgb(var(--rgb-hover) / <alpha-value>)",
+        accent: "rgb(var(--rgb-accent) / <alpha-value>)",
+        "accent-ink": "rgb(var(--rgb-accent-ink) / <alpha-value>)",
+        amber: "rgb(var(--rgb-amber) / <alpha-value>)",
+        night: "rgb(var(--rgb-night) / <alpha-value>)",
       },
       fontSize: {
         "2xs": ["0.625rem", { lineHeight: "1" }],

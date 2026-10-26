@@ -17,7 +17,7 @@ const track = Array.from({ length: 4 }, () => ITEMS).flat();
 
 export function MarqueeStrip() {
   return (
-    <div className="w-full bg-[#0A0A0A] overflow-hidden py-3 select-none">
+    <div className="w-full bg-ink overflow-hidden py-3 select-none">
       <motion.div
         className="flex gap-6 whitespace-nowrap"
         animate={{ x: ["0%", "-50%"] }}

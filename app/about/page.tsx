@@ -18,10 +18,10 @@ const drives = [
 
 const interests = [
   { label: "[startups]", src: "/images/startups.jpg" },
-  { label: "[tech]",     src: "/images/technology.jpg" },
+  { label: "[tech]",     src: "/images/technology.webp" },
   { label: "[sport]",    src: "/images/sports.JPG", position: "object-[center_20%]" },
   { label: "[travel]",   src: "/images/travelling.webp" },
-  { label: "[reading]",  src: "/images/read.jpg" },
+  { label: "[reading]",  src: "/images/read.webp" },
   { label: "[people]",   src: "/images/people.JPG", position: "object-[center_50%]" },
 ];
 
@@ -41,7 +41,7 @@ export default function AboutPage() {
             <ArrowUpRight size={11} weight="bold" />
           </Link>
         </div>
-        <p className="text-[#6B6B6B] text-base max-w-md">
+        <p className="text-muted text-base max-w-md">
           I don&apos;t have it all figured out. But I know what I&apos;m after.
         </p>
       </div>
@@ -54,7 +54,7 @@ export default function AboutPage() {
               <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-8">
                 [who i am]
               </h2>
-              <p className="text-base text-[#0A0A0A] leading-relaxed">
+              <p className="text-base text-ink leading-relaxed">
                 A 20-year-old Spanish CS student living abroad who spent years chasing grades and missing the point.
                 He understood nobody was going to save him, and started being responsible for himself. He noticed
                 he was not meant for a predictable path. He started doing side-quests which eventually ended up
@@ -65,7 +65,7 @@ export default function AboutPage() {
           </FadeIn>
 
           <FadeIn delay={0.12}>
-            <div className="relative aspect-video overflow-hidden rounded-xl bg-[#F5F5F5]">
+            <div className="relative aspect-video overflow-hidden rounded-xl bg-hover">
               <Image
                 src="/images/pedro/about-whoami-2.JPG"
                 alt="Pedro Medina"
@@ -80,7 +80,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── [what drives me] ── */}
-      <section className="border-t border-[#E5E5E5] py-16 md:py-20">
+      <section className="border-t border-line py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
           <FadeIn>
             <h2 className="text-2xl md:text-3xl font-black tracking-tight">
@@ -91,9 +91,9 @@ export default function AboutPage() {
             <StaggerContainer staggerDelay={0.1}>
               {drives.map((item) => (
                 <StaggerItem key={item.n}>
-                  <div className="grid grid-cols-[2rem_1fr] gap-4 py-5 border-b border-[#E5E5E5]">
-                    <span className="text-xs text-[#6B6B6B] font-medium pt-0.5">{item.n}</span>
-                    <p className="text-base text-[#0A0A0A] leading-relaxed">{item.text}</p>
+                  <div className="grid grid-cols-[2rem_1fr] gap-4 py-5 border-b border-line">
+                    <span className="text-xs text-muted font-medium pt-0.5">{item.n}</span>
+                    <p className="text-base text-ink leading-relaxed">{item.text}</p>
                   </div>
                 </StaggerItem>
               ))}
@@ -103,7 +103,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── [what i like] ── */}
-      <section className="border-t border-[#E5E5E5] py-16 md:py-20">
+      <section className="border-t border-line py-16 md:py-20">
         <FadeIn>
           <h2 className="text-2xl md:text-3xl font-black tracking-tight mb-10">
             [what do I actually love]
@@ -112,7 +112,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
           {interests.map((item, i) => (
             <FadeIn key={item.label} delay={i * 0.07}>
-              <div className="relative overflow-hidden rounded-xl bg-[#F5F5F5] group">
+              <div className="relative overflow-hidden rounded-xl bg-hover group">
                 <div className="relative aspect-[4/3]">
                   <Image
                     src={item.src}
@@ -133,7 +133,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Backlinks ── */}
-      <section className="border-t border-[#E5E5E5] pt-12 flex flex-col sm:flex-row gap-6 sm:gap-16">
+      <section className="border-t border-line pt-12 flex flex-col sm:flex-row gap-6 sm:gap-16">
         <Link
           href="/blog"
           className="text-xs tracking-wide font-medium inline-flex items-center gap-1.5 link-underline hover:opacity-60 transition-opacity duration-200"
