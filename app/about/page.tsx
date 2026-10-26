@@ -5,6 +5,7 @@ import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/fade-in";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/about" },
   title: "About",
   description: "Who Pedro Medina is. A record of what he builds and what he learns.",
 };

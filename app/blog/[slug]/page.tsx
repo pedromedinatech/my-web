@@ -8,6 +8,7 @@ import { ArrowLeft, ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { BlogCard } from "@/components/blog-card";
 import { SubstackLogo } from "@/components/substack-logo";
 import { SubscribeCard } from "@/components/subscribe-card";
+import { blogPostingJsonLd, jsonLdScript } from "@/lib/jsonld";
 
 interface PageProps {
   params: { slug: string };
@@ -25,6 +26,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
@@ -50,6 +52,10 @@ export default function PostPage({ params }: PageProps) {
 
   return (
     <article className="max-w-layout mx-auto px-6 md:px-10 pt-28 md:pt-32 pb-16 md:pb-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdScript(blogPostingJsonLd(post)) }}
+      />
       {/* Back link + about */}
       <div className="flex items-center justify-between mb-12">
         <Link

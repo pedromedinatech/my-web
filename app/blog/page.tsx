@@ -6,6 +6,7 @@ import { BlogListClient } from "./blog-list-client";
 import { SubscribeCard } from "@/components/subscribe-card";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/blog" },
   title: "Blog",
   description:
     "Posts on startups, technology, sales, and learning in public.",

@@ -4,6 +4,7 @@ import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/fade-in";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/now" },
   title: "Now",
   description: "What I'm doing now — updated every few months.",
 };
