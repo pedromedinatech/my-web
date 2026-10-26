@@ -119,8 +119,8 @@ export function Nav() {
               compact ? "invisible opacity-0 -translate-y-1" : "visible opacity-100 translate-y-0"
             }`}
           >
-            {/* Column 1: page links */}
-            <div className="flex flex-col gap-[5px]">
+            {/* Column 1: page links, in two columns of three so the block stays short */}
+            <div className="grid grid-rows-3 grid-flow-col gap-x-10 gap-y-[5px]">
               {pageLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (

@@ -180,7 +180,19 @@ function Viewer({
   const y = useMotionValue(0);
   const backdrop = useTransform(y, [-300, 0, 300], [0.4, 1, 0.4]);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   useEffect(() => { closeRef.current?.focus(); }, []);
+
+  // Keep Tab inside the dialog while it is open.
+  const trapFocus = (e: React.KeyboardEvent) => {
+    if (e.key !== "Tab" || !dialogRef.current) return;
+    const items = dialogRef.current.querySelectorAll<HTMLElement>("button, [href], [tabindex]:not([tabindex='-1'])");
+    if (items.length === 0) return;
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  };
 
   const caption = photoCaption(photo);
   const settings = [photo.lens, photo.aperture, photo.shutter, photo.iso ? `ISO ${photo.iso}` : ""].filter(Boolean).join(" · ");
@@ -188,6 +200,8 @@ function Viewer({
 
   return (
     <motion.div
+      ref={dialogRef}
+      onKeyDown={trapFocus}
       role="dialog"
       aria-modal="true"
       aria-label={photo.alt || `Photo ${index + 1} of ${total}`}
