@@ -141,8 +141,9 @@ function Tile({
       <motion.div
         layoutId={layout ? `photo-${photo.src}` : undefined}
         transition={SPRING}
-        className="relative h-full w-full"
-        style={{ opacity: hidden ? 0 : 1 }}
+        className="relative h-full w-full overflow-hidden"
+        // Radius in style (not a class) so Motion corrects it during the layout animation.
+        style={{ opacity: hidden ? 0 : 1, borderRadius: 4 }}
       >
         <Image
           src={photo.src}
@@ -226,10 +227,10 @@ function Viewer({
         <motion.div
           layoutId={layout ? `photo-${photo.src}` : undefined}
           transition={SPRING}
-          className="relative w-full overflow-hidden rounded-[4px]"
-          style={{ aspectRatio: `${photo.width} / ${photo.height}` }}
+          className="relative w-full overflow-hidden"
+          style={{ aspectRatio: `${photo.width} / ${photo.height}`, borderRadius: 4 }}
         >
-          <Image src={photo.src} alt={photo.alt} fill sizes="100vw" className="object-contain" priority />
+          <Image src={photo.src} alt={photo.alt} fill sizes="(min-width: 768px) 80vw, 100vw" quality={85} className="object-contain" priority />
         </motion.div>
       </motion.div>
 
