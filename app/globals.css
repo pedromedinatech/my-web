@@ -134,9 +134,10 @@
     mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
   }
 
+  /* No display here: links set their own (inline-flex with an icon). Forcing
+     inline-block used to push the arrow onto its own line. */
   .link-underline {
     position: relative;
-    display: inline-block;
   }
   .link-underline::after {
     content: "";
