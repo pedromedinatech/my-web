@@ -4,7 +4,7 @@
 
 /* ─── Text selection ─── */
 ::selection {
-  background: var(--color-accent);
+  background: var(--color-text);
   color: var(--color-bg);
 }
 

@@ -19,7 +19,6 @@ export const SITE = {
 export const PAGES: { path: string; title: string; description: string }[] = [
   { path: "/", title: "Home", description: "Who Pedro is and his latest essays." },
   { path: "/blog", title: "Blog", description: "Every essay, newest first." },
-  { path: "/photos", title: "Photos", description: "Photos Pedro takes: mountains, snow, the sea and a few cities." },
   { path: "/about", title: "About", description: "Pedro's story: computer science, sales, startups, running." },
   { path: "/now", title: "Now", description: "What Pedro is focused on right now." },
   { path: "/read", title: "Read", description: "Books and essays Pedro recommends." },

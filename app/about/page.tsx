@@ -56,7 +56,7 @@ export default function AboutPage() {
                 [who i am]
               </h2>
               <p className="text-base text-ink leading-relaxed">
-                A 20-year-old Spanish CS student living abroad who spent years chasing grades and missing the point.
+                A 21-year-old Spanish CS student who spent years chasing grades and missing the point.
                 He understood nobody was going to save him, and started being responsible for himself. He noticed
                 he was not meant for a predictable path. He started doing side-quests which eventually ended up
                 liking. Concluded that why sticking to one single thing was atractive, and started running away

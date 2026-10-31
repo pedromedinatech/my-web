@@ -21,7 +21,7 @@ export function AboutSnippetSection() {
             {/* Body */}
             <div className="space-y-5 mb-10">
               <p className="text-ink text-base leading-relaxed">
-                I&apos;m 20, born in Córdoba. I&apos;m trying to collect as many experiences
+                I&apos;m 21, born in Córdoba. I&apos;m trying to collect as many experiences
                 as I can while I&apos;m young. My happiness comes from taking side-quests
                 and creating things. I study, I sell, I build and I write, and I know
                 the intersection of all of them will become something powerful.

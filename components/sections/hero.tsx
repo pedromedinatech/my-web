@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "@phosphor-icons/react";
 
 const LINES = [
@@ -26,11 +25,6 @@ const NAME_FONT_SIZE = "clamp(2.5rem, min(12vw, 16vh), 11rem)";
 
 export function HeroSection() {
   const reduceMotion = useReducedMotion();
-  // Starts false on server and client so hydration matches.
-  const [animateIndicator, setAnimateIndicator] = useState(false);
-  useEffect(() => {
-    setAnimateIndicator(reduceMotion === false);
-  }, [reduceMotion]);
 
   return (
     <section className="p-3 md:p-6">
@@ -116,33 +110,6 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* ── Scroll indicator (decorative). Static line in the server HTML and
-          with reduced motion; loops only after hydration when motion is OK. ── */}
-      <div
-        aria-hidden
-        className="absolute bottom-10 right-6 md:bottom-14 md:right-10 lg:right-16 z-10"
-      >
-        <motion.span
-          className="block w-px bg-paper/30"
-          initial={false}
-          animate={
-            animateIndicator
-              ? { scaleY: [0, 1, 1, 0], y: ["0%", "0%", "0%", "100%"] }
-              : { scaleY: 1, y: "0%" }
-          }
-          transition={
-            animateIndicator
-              ? {
-                  repeat: Infinity,
-                  duration: 2.6,
-                  ease: "easeInOut",
-                  times: [0, 0.3, 0.7, 1],
-                }
-              : { duration: 0 }
-          }
-          style={{ height: 44, transformOrigin: "top" }}
-        />
-      </div>
       </div>
     </section>
   );

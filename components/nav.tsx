@@ -9,7 +9,6 @@ const pageLinks = [
   { href: "/", label: "home" },
   { href: "/about", label: "about" },
   { href: "/blog", label: "blog" },
-  { href: "/photos", label: "photos" },
   { href: "/read", label: "read" },
   { href: "/now", label: "now" },
 ];
@@ -115,7 +114,7 @@ export function Nav() {
         <nav aria-label="Main navigation" className="hidden md:block">
           {/* ── Desktop, top of the page: the original two-column block, top-right ── */}
           <div
-            className={`pointer-events-auto absolute top-7 right-12 lg:right-16 flex items-start gap-20 whitespace-nowrap ${FADE} ${
+            className={`pointer-events-auto absolute top-12 lg:top-16 right-12 lg:right-16 flex items-start gap-20 whitespace-nowrap ${FADE} ${
               compact ? "invisible opacity-0 -translate-y-1" : "visible opacity-100 translate-y-0"
             }`}
           >

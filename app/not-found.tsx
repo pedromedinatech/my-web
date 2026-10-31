@@ -5,22 +5,33 @@ import Link from "next/link";
  * 404: a night panel framed like the home hero. Diogenes walked through Athens
  * with a lamp in daylight, looking for an honest man.
  *
- * DIOGENES_IMAGE: Jean-Léon Gérôme, "Diogenes" (1860, Walters Art Museum, open
- * access). Pending Pedro's OK to download it; until then the page is
- * typographic only.
+ * The painting fills the frame (Jean-Léon Gérôme, public domain via
+ * Wikimedia Commons); a night gradient from the bottom-left keeps the text readable.
  */
-const DIOGENES_IMAGE: { src: string; caption: string } | null = null;
+const DIOGENES_IMAGE = {
+  src: "/images/diogenes-gerome.webp",
+  alt: "Diogenes sitting in his large clay jar, trimming a lantern, with four dogs around him in a sunlit street.",
+  caption: "Jean-Léon Gérôme, Diogenes, 1860. Walters Art Museum, Baltimore.",
+};
 
 export default function NotFound() {
   return (
     <section className="p-3 md:p-6">
       <div data-nav-on-dark className="relative min-h-[calc(100dvh-1.5rem)] md:min-h-[calc(100dvh-3rem)] rounded-[6px] bg-night text-paper overflow-hidden">
-        {/* Lamp light: a warm pool where Diogenes holds the lamp */}
+        <Image
+          src={DIOGENES_IMAGE.src}
+          alt={DIOGENES_IMAGE.alt}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[35%_40%]"
+        />
         <div
           aria-hidden
-          className="pointer-events-none absolute -left-40 -top-40 h-[640px] w-[640px] rounded-full"
+          className="pointer-events-none absolute inset-0"
           style={{
-            background: "radial-gradient(closest-side, rgb(var(--rgb-amber) / 0.22), transparent)",
+            background:
+              "linear-gradient(to top, rgb(var(--rgb-night) / 0.95) 0%, rgb(var(--rgb-night) / 0.75) 35%, rgb(var(--rgb-night) / 0.15) 70%, transparent 100%), linear-gradient(to right, rgb(var(--rgb-night) / 0.6), transparent 60%), linear-gradient(to bottom, rgb(var(--rgb-night) / 0.6), transparent 22%)",
           }}
         />
 
@@ -48,14 +59,9 @@ export default function NotFound() {
             </div>
           </div>
 
-          {DIOGENES_IMAGE && (
-            <figure className="justify-self-end w-full max-w-[460px]">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[4px]">
-                <Image src={DIOGENES_IMAGE.src} alt={DIOGENES_IMAGE.caption} fill className="object-cover" />
-              </div>
-              <figcaption className="mt-3 text-[12px] text-paper/50">{DIOGENES_IMAGE.caption}</figcaption>
-            </figure>
-          )}
+          <p className="md:justify-self-end md:text-right max-w-[36ch] text-[12px] text-paper/55">
+            {DIOGENES_IMAGE.caption}
+          </p>
         </div>
       </div>
     </section>
