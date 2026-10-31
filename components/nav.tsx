@@ -40,12 +40,11 @@ export function Nav() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
-  // compact:    the page has been scrolled; the nav becomes a single-line bar.
-  // overHero:   the nav still sits on the dark home photo (transparent, white text).
-  // overFooter: a very short page puts the dark footer under a transparent nav.
+  // compact:  the page has been scrolled; the nav becomes a single-line bar.
+  // overHero: the nav still sits on the home photo (transparent, white text).
+  // The footer is paper now, so it never needs light text.
   const [compact, setCompact] = useState(false);
   const [overHero, setOverHero] = useState(isHome);
-  const [overFooter, setOverFooter] = useState(false);
 
   useEffect(() => { setMounted(true); }, []);
   useEffect(() => { setMenuOpen(false); }, [pathname]);
@@ -55,12 +54,11 @@ export function Nav() {
       const y = window.scrollY;
       setCompact(y > COMPACT_AFTER);
 
-      // The home hero is min-h-[100dvh]: the nav is "over the photo" until the
-      // bottom edge of the bar reaches the bottom of the hero.
-      setOverHero(isHome && y + BAR_H < window.innerHeight);
-
-      const footer = document.querySelector("footer");
-      setOverFooter(!!footer && footer.getBoundingClientRect().top <= BAR_H);
+      // Any block marked data-nav-on-dark (the home photo, the 404 night panel)
+      // puts the nav in light text while the bar sits over it.
+      const dark = document.querySelector("[data-nav-on-dark]");
+      const r = dark?.getBoundingClientRect();
+      setOverHero(!!r && r.top < BAR_H && r.bottom > BAR_H);
     };
 
     compute();
@@ -70,7 +68,7 @@ export function Nav() {
       window.removeEventListener("scroll", compute);
       window.removeEventListener("resize", compute);
     };
-  }, [isHome, pathname]);
+  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -86,15 +84,15 @@ export function Nav() {
 
   // White bar as soon as the page is scrolled, except while still over the home photo.
   const solid = compact && !overHero;
-  // White text only while the nav is transparent over something dark.
-  const onDark = !solid && (overHero || overFooter);
+  // White text only while the nav is transparent over the home photo.
+  const onDark = !solid && overHero;
 
-  const expandedTextColor = onDark ? "text-white" : "text-[#0A0A0A]";
+  const expandedTextColor = onDark ? "text-white" : "text-ink";
   const barLinkColor = (isActive: boolean) =>
     onDark
       ? isActive ? "text-white" : "text-white/60 hover:text-white focus-visible:text-white"
-      : isActive ? "text-[#0A0A0A]" : "text-[#6B6B6B] hover:text-[#0A0A0A] focus-visible:text-[#0A0A0A]";
-  const iconColor = menuOpen || !onDark ? "text-[#0A0A0A]" : "text-white";
+      : isActive ? "text-ink" : "text-muted hover:text-ink focus-visible:text-ink";
+  const iconColor = menuOpen || !onDark ? "text-ink" : "text-white";
   const showBar = solid && !menuOpen;
 
   return (
@@ -102,26 +100,26 @@ export function Nav() {
       <header
         className={`fixed inset-x-0 top-0 z-50 h-14 ${showBar ? "" : "pointer-events-none"}`}
       >
-        {/* ── Bar background: white + blur + hairline, only once scrolled off the photo ── */}
+        {/* ── Bar background: translucent paper (content scrolls under it), only once scrolled off the photo ── */}
         <div
           aria-hidden
           className={`absolute inset-0 border-b ${FADE} ${
             showBar
-              ? "bg-white/90 border-[#E5E5E5] opacity-100"
-              : "bg-white/0 border-transparent opacity-0"
+              ? "bg-paper/80 border-line opacity-100"
+              : "bg-paper/0 border-transparent opacity-0"
           }`}
-          style={{ backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }}
+          style={{ backdropFilter: "blur(20px) saturate(160%)", WebkitBackdropFilter: "blur(20px) saturate(160%)" }}
         />
 
         <nav aria-label="Main navigation" className="hidden md:block">
           {/* ── Desktop, top of the page: the original two-column block, top-right ── */}
           <div
-            className={`pointer-events-auto absolute top-7 right-12 lg:right-16 flex items-start gap-20 whitespace-nowrap ${FADE} ${
+            className={`pointer-events-auto absolute top-12 lg:top-16 right-12 lg:right-16 flex items-start gap-20 whitespace-nowrap ${FADE} ${
               compact ? "invisible opacity-0 -translate-y-1" : "visible opacity-100 translate-y-0"
             }`}
           >
-            {/* Column 1: page links */}
-            <div className="flex flex-col gap-[5px]">
+            {/* Column 1: page links, in two columns of three so the block stays short */}
+            <div className="grid grid-rows-3 grid-flow-col gap-x-10 gap-y-[5px]">
               {pageLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (
@@ -184,7 +182,7 @@ export function Nav() {
 
         {/* ── Mobile hamburger, centred in the 56px bar ── */}
         <button
-          className={`pointer-events-auto absolute top-3 right-5 md:hidden p-1.5 hover:opacity-50 ${FADE} ${FOCUS} ${iconColor}`}
+          className={`press pointer-events-auto absolute top-3 right-5 md:hidden p-1.5 hover:opacity-50 ${FADE} ${FOCUS} ${iconColor}`}
           onClick={() => setMenuOpen((v) => !v)}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
@@ -194,14 +192,14 @@ export function Nav() {
         </button>
       </header>
 
-      {/* ── Mobile full-screen menu ── */}
+      {/* ── Mobile full-screen menu: opens from the right, where the button is, and closes back the same way ── */}
       {mounted && (
         <div
           id="mobile-menu"
           aria-hidden={!menuOpen}
-          className="fixed inset-0 z-40 bg-white flex flex-col justify-end px-6 pb-16 md:hidden"
+          className="fixed inset-0 z-40 bg-paper flex flex-col justify-end px-6 pb-16 md:hidden"
           style={{
-            clipPath: menuOpen ? "inset(0 0% 0 0)" : "inset(0 100% 0 0)",
+            clipPath: menuOpen ? "inset(0 0 0 0%)" : "inset(0 0 0 100%)",
             // visibility keeps the closed menu's links out of the tab order
             visibility: menuOpen ? "visible" : "hidden",
             transition: menuOpen
@@ -225,7 +223,7 @@ export function Nav() {
               >
                 <Link
                   href={link.href}
-                  className={`text-[2.75rem] font-black tracking-[-0.03em] text-[#0A0A0A] leading-none block py-2 hover:opacity-30 transition-opacity duration-150 ${FOCUS}`}
+                  className={`text-[2.75rem] font-black tracking-[-0.03em] text-ink leading-none block py-2 hover:opacity-30 transition-opacity duration-150 ${FOCUS}`}
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label}
@@ -235,7 +233,7 @@ export function Nav() {
           </ul>
 
           {/* Contact links */}
-          <ul className="flex flex-col gap-2 border-t border-[#E5E5E5] pt-6">
+          <ul className="flex flex-col gap-2 border-t border-line pt-6">
             {contactLinks.map((link, i) => (
               <li
                 key={link.href}
@@ -250,7 +248,7 @@ export function Nav() {
                   href={link.href}
                   target={link.href.startsWith("mailto") ? undefined : "_blank"}
                   rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-1 text-sm text-[#6B6B6B] hover:text-[#0A0A0A] transition-colors duration-150 ${FOCUS}`}
+                  className={`inline-flex items-center gap-1 text-sm text-muted hover:text-ink transition-colors duration-150 ${FOCUS}`}
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label}

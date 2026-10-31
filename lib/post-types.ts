@@ -12,6 +12,8 @@ export interface PostMeta {
   category: PostCategory;
   excerpt: string;
   coverImage?: string;
+  /** Credit for the cover artwork, shown under it (author, title, year, collection). */
+  coverCaption?: string;
   substackUrl?: string;
   published: boolean;
   readingTime: string;

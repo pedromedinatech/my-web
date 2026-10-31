@@ -3,8 +3,10 @@ import Link from "next/link";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { getAllPosts } from "@/lib/posts";
 import { BlogListClient } from "./blog-list-client";
+import { SubscribeCard } from "@/components/subscribe-card";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/blog" },
   title: "Blog",
   description:
     "Posts on startups, technology, sales, and learning in public.",
@@ -29,12 +31,14 @@ export default function BlogPage() {
             <ArrowUpRight size={11} weight="bold" />
           </Link>
         </div>
-        <p className="text-[#6B6B6B] text-base max-w-md">
+        <p className="text-muted text-base max-w-md">
           Learning in public. No filters, no waiting until everything is figured out.
         </p>
       </div>
 
       <BlogListClient posts={posts} />
+
+      <SubscribeCard />
     </div>
   );
 }

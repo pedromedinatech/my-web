@@ -25,7 +25,7 @@ export function BuildingSection() {
   return (
     <section className="max-w-layout mx-auto px-6 md:px-10 py-24 md:py-32">
       {/* Section label */}
-      <p className="text-xs tracking-wide text-[#6B6B6B] mb-16 font-medium">
+      <p className="text-xs tracking-wide text-muted mb-16 font-medium">
         what I&apos;m building
       </p>
 
@@ -35,17 +35,17 @@ export function BuildingSection() {
       >
         {/* Large left block */}
         <StaggerItem>
-          <div className="border-t border-[#E5E5E5] pt-8 pb-12 pr-0 md:pr-16">
-            <span className="text-xs tracking-wide text-[#6B6B6B] font-medium mb-4 block">
+          <div className="border-t border-line pt-8 pb-12 pr-0 md:pr-16">
+            <span className="text-xs tracking-wide text-muted font-medium mb-4 block">
               {axes[0].label}
             </span>
             <h2
-              className="font-black text-[#0A0A0A] mb-4 leading-tight tracking-tight"
+              className="font-black text-ink mb-4 leading-tight tracking-tight"
               style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.75rem)" }}
             >
               {axes[0].title}
             </h2>
-            <p className="text-[#6B6B6B] text-base leading-relaxed max-w-[50ch]">
+            <p className="text-muted text-base leading-relaxed max-w-[50ch]">
               {axes[0].description}
             </p>
           </div>
@@ -55,14 +55,14 @@ export function BuildingSection() {
         <div className="flex flex-col">
           {axes.slice(1).map((axis) => (
             <StaggerItem key={axis.label}>
-              <div className="border-t border-[#E5E5E5] pt-8 pb-10 md:pl-10">
-                <span className="text-xs tracking-wide text-[#6B6B6B] font-medium mb-3 block">
+              <div className="border-t border-line pt-8 pb-10 md:pl-10">
+                <span className="text-xs tracking-wide text-muted font-medium mb-3 block">
                   {axis.label}
                 </span>
-                <h3 className="text-base font-bold text-[#0A0A0A] leading-snug tracking-tight mb-2">
+                <h3 className="text-base font-bold text-ink leading-snug tracking-tight mb-2">
                   {axis.title}
                 </h3>
-                <p className="text-sm text-[#6B6B6B] leading-relaxed">
+                <p className="text-sm text-muted leading-relaxed">
                   {axis.description}
                 </p>
               </div>

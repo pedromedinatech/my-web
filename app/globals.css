@@ -4,8 +4,8 @@
 
 /* ─── Text selection ─── */
 ::selection {
-  background: #0A0A0A;
-  color: #ffffff;
+  background: var(--color-text);
+  color: var(--color-bg);
 }
 
 /* ─── Custom easing (Emil Kowalski) ─── */
@@ -37,12 +37,28 @@
   }
 }
 
+/* ─── Palette: paper, ink, poster red (see knowledge-base/outputs/web-direccion-arte.md)
+   Channels feed Tailwind's opacity modifiers (bg-paper/80); --color-* are for plain CSS. ─── */
 :root {
-  --color-bg: #ffffff;
-  --color-text: #0a0a0a;
-  --color-muted: #6b6b6b;
-  --color-border: #e5e5e5;
-  --color-hover: #f5f5f5;
+  --rgb-paper: 243 238 228;       /* #f3eee4 */
+  --rgb-ink: 27 23 20;            /* #1b1714 */
+  --rgb-muted: 103 94 84;         /* #675e54, 5.5:1 on paper */
+  --rgb-line: 226 217 202;        /* #e2d9ca, hairline on paper */
+  --rgb-hover: 235 228 215;       /* #ebe4d7, pressed / hovered surface */
+  --rgb-accent: 226 57 31;        /* #e2391f, poster red: large type, selection, details */
+  --rgb-accent-ink: 196 46 23;    /* #c42e17, poster red for small text (4.8:1 on paper) */
+  --rgb-amber: 200 130 47;        /* #c8822f, lamp light, only on night */
+  --rgb-night: 22 17 13;          /* #16110d, 404 */
+
+  --color-bg: rgb(var(--rgb-paper));
+  --color-text: rgb(var(--rgb-ink));
+  --color-muted: rgb(var(--rgb-muted));
+  --color-border: rgb(var(--rgb-line));
+  --color-hover: rgb(var(--rgb-hover));
+  --color-accent: rgb(var(--rgb-accent));
+  --color-accent-ink: rgb(var(--rgb-accent-ink));
+  --color-amber: rgb(var(--rgb-amber));
+  --color-night: rgb(var(--rgb-night));
 }
 
 @layer base {
@@ -65,8 +81,22 @@
   }
 
   :focus-visible {
-    outline: 1px solid var(--color-text);
+    outline: 2px solid var(--color-accent-ink);
     outline-offset: 2px;
+  }
+
+  /* Instant feedback on press (apple-design: respond on pointer-down) */
+  a, button, [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+  }
+  .press {
+    transition: transform 100ms ease-out;
+  }
+  .press:active {
+    transform: scale(0.97);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .press:active { transform: none; }
   }
 
   ::-webkit-scrollbar {
@@ -104,9 +134,10 @@
     mask-image: linear-gradient(to left, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
   }
 
+  /* No display here: links set their own (inline-flex with an icon). Forcing
+     inline-block used to push the arrow onto its own line. */
   .link-underline {
     position: relative;
-    display: inline-block;
   }
   .link-underline::after {
     content: "";
@@ -162,14 +193,21 @@
     transition: text-decoration-color 0.2s;
   }
   .prose-pedro a:hover {
-    text-decoration-color: var(--color-text);
+    color: var(--color-accent-ink);
+    text-decoration-color: var(--color-accent-ink);
   }
   .prose-pedro blockquote {
-    border-left: 2px solid var(--color-text);
-    padding-left: 1.5rem;
-    margin-left: 0;
-    font-style: italic;
+    border-left: 2px solid var(--color-accent);
+    padding: 0.25em 0 0.25em 1.5rem;
+    margin: 2em 0;
     color: var(--color-muted);
+  }
+  .prose-pedro blockquote p {
+    text-align: left;
+    margin-bottom: 0.75em;
+  }
+  .prose-pedro blockquote p:last-child {
+    margin-bottom: 0;
   }
   .prose-pedro code {
     font-size: 0.875em;
@@ -178,8 +216,8 @@
     border-radius: 2px;
   }
   .prose-pedro pre {
-    background: #0a0a0a;
-    color: #f5f5f5;
+    background: var(--color-night);
+    color: var(--color-bg);
     padding: 1.5rem;
     border-radius: 3px;
     overflow-x: auto;
@@ -219,4 +257,44 @@
   .prose-pedro strong {
     font-weight: 700;
   }
+}
+
+/* ─── /photos: Pinterest-style masonry ───
+   Each tile gets its column (--cN), its offset in column widths (--aN) and the
+   number of gaps above it (--bN) for N = 2, 3, 4 columns, computed on the server
+   (lib/photos.ts). Container queries pick the set; calc() turns them into px. */
+.masonry-wrap {
+  container-type: inline-size;
+}
+.masonry {
+  --n: 2;
+  --gap: 8px;
+  --colw: calc((100cqw - (var(--n) - 1) * var(--gap)) / var(--n));
+  position: relative;
+  height: calc(var(--ha2) * var(--colw) + var(--hb2) * var(--gap));
+}
+.masonry > .tile {
+  --c: var(--c2);
+  --a: var(--a2);
+  --b: var(--b2);
+  position: absolute;
+  width: var(--colw);
+  left: calc(var(--c) * (var(--colw) + var(--gap)));
+  top: calc(var(--a) * var(--colw) + var(--b) * var(--gap));
+}
+@container (min-width: 640px) {
+  .masonry {
+    --n: 3;
+    --gap: 10px;
+    height: calc(var(--ha3) * var(--colw) + var(--hb3) * var(--gap));
+  }
+  .masonry > .tile { --c: var(--c3); --a: var(--a3); --b: var(--b3); }
+}
+@container (min-width: 1024px) {
+  .masonry {
+    --n: 4;
+    --gap: 12px;
+    height: calc(var(--ha4) * var(--colw) + var(--hb4) * var(--gap));
+  }
+  .masonry > .tile { --c: var(--c4); --a: var(--a4); --b: var(--b4); }
 }
