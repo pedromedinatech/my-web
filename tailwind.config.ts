@@ -11,7 +11,6 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-inter)", "Helvetica Neue", "Arial", "sans-serif"],
         display: ["var(--font-inter)", "Helvetica Neue", "Arial", "sans-serif"],
-        mono: ["var(--font-mono)", "ui-monospace", "Menlo", "Consolas", "monospace"],
       },
       colors: {
         // Mirrors the CSS variables in app/globals.css
