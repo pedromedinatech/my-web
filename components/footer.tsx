@@ -46,7 +46,7 @@ export function Footer() {
   const recent = getAllPosts().slice(0, 3);
 
   return (
-    <footer className="relative mt-24 md:mt-32 overflow-hidden bg-paper flex flex-col">
+    <footer className="relative overflow-hidden bg-paper flex flex-col">
       {/* Desktop: behind the whole footer from its top edge. Mobile: the columns
           are too tall to sit on the sky, so the photo goes below them. */}
       <div className="relative order-last aspect-[4/3] md:order-none md:absolute md:inset-0 md:aspect-auto">
@@ -56,7 +56,7 @@ export function Footer() {
           fill
           sizes="100vw"
           quality={85}
-          className="object-cover object-[50%_60%] md:object-top"
+          className="object-cover object-[50%_60%] md:object-bottom"
         />
         {/* Soft edge: the photo blurs and fades into the paper instead of starting on a hard line. */}
         <div
@@ -70,7 +70,9 @@ export function Footer() {
         />
       </div>
 
-      <div className="relative flex flex-col md:min-h-[60vw]">
+      {/* Shorter than the photo (60vw tall at full width): object-bottom crops the
+          empty sky, so the mountains rise to just below the columns. */}
+      <div className="relative flex flex-col md:min-h-[57vw]">
       <div className="max-w-layout mx-auto px-6 md:px-10 pt-14 md:pt-20 grid grid-cols-2 md:grid-cols-12 gap-x-8 gap-y-12">
         {/* Identity */}
         <div className="col-span-2 md:col-span-4">

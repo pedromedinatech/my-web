@@ -1,12 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { PILL_GLASS, PILL_SOLID } from "@/components/pill-link";
 
 /*
  * 404: a night panel framed like the home hero. Diogenes walked through Athens
  * with a lamp in daylight, looking for an honest man.
  *
  * The painting fills the frame (Jean-Léon Gérôme, public domain via
- * Wikimedia Commons); a night gradient from the bottom-left keeps the text readable.
+ * Wikimedia Commons); a night wash keeps the centred text readable.
  */
 const DIOGENES_IMAGE = {
   src: "/images/diogenes-gerome.webp",
@@ -26,43 +28,42 @@ export default function NotFound() {
           sizes="100vw"
           className="object-cover object-[35%_40%]"
         />
+        {/* Night wash: even over the painting so the centred text reads, deeper at top and bottom */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, rgb(var(--rgb-night) / 0.95) 0%, rgb(var(--rgb-night) / 0.75) 35%, rgb(var(--rgb-night) / 0.15) 70%, transparent 100%), linear-gradient(to right, rgb(var(--rgb-night) / 0.6), transparent 60%), linear-gradient(to bottom, rgb(var(--rgb-night) / 0.6), transparent 22%)",
+              "linear-gradient(to bottom, rgb(var(--rgb-night) / 0.7) 0%, rgb(var(--rgb-night) / 0.5) 40%, rgb(var(--rgb-night) / 0.55) 60%, rgb(var(--rgb-night) / 0.85) 100%)",
           }}
         />
 
-        <div className="relative grid min-h-[inherit] grid-cols-1 md:grid-cols-2 items-end gap-10 px-6 md:px-12 pt-28 pb-12 md:pb-16">
-          <div>
-            <p className="text-[13px] text-paper/60 mb-6">error 404</p>
-            <h1
-              className="font-black text-paper"
-              style={{ fontSize: "clamp(3rem, 9vw, 8rem)", lineHeight: 0.9, letterSpacing: "-0.04em" }}
-            >
-              still
-              <br />
-              looking.
-            </h1>
-            <p className="mt-8 max-w-[38ch] text-[17px] leading-relaxed text-paper/75">
-              Diogenes walked through Athens in broad daylight with a lit lamp, looking for an honest man. He never found one. This page didn&apos;t find what you were looking for either.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 text-[15px]">
-              <Link href="/" className="press text-amber hover:text-paper transition-colors duration-150 rounded-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber">
-                back to home
-              </Link>
-              <Link href="/blog" className="press text-amber hover:text-paper transition-colors duration-150 rounded-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber">
-                read the essays
-              </Link>
-            </div>
-          </div>
-
-          <p className="md:justify-self-end md:text-right max-w-[36ch] text-[12px] text-paper/55">
-            {DIOGENES_IMAGE.caption}
+        {/* Same layout as the home hero: centred, Instrument Serif, pill CTAs */}
+        <div className="relative flex min-h-[inherit] flex-col items-center justify-center px-6 pt-28 pb-24 text-center">
+          <h1
+            className="font-serif text-paper"
+            style={{ fontSize: "clamp(3rem, min(17vw, 19vh), 11rem)", lineHeight: 0.9, fontWeight: 400, letterSpacing: "-0.03em" }}
+          >
+            <span className="block italic">still</span>
+            <span className="block whitespace-nowrap">looking.</span>
+          </h1>
+          <p className="mt-6 max-w-[44ch] text-[clamp(0.9375rem,1.5vw,1.125rem)] leading-[1.55] text-paper/85">
+            Diogenes walked through Athens in broad daylight with a lit lamp, looking for an honest man. He never found one. This page didn&apos;t find what you were looking for either.
           </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Link href="/" className={PILL_SOLID}>
+              Back to home
+              <ArrowRight size={14} weight="bold" />
+            </Link>
+            <Link href="/blog" className={PILL_GLASS}>
+              Read the essays
+            </Link>
+          </div>
         </div>
+
+        <p className="absolute bottom-5 right-6 md:bottom-6 md:right-8 max-w-[36ch] text-right text-[12px] text-paper/55">
+          {DIOGENES_IMAGE.caption}
+        </p>
       </div>
     </section>
   );

@@ -5,13 +5,20 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { X, List, ArrowUpRight } from "@phosphor-icons/react";
 
+// `alt` is the word that rolls in on hover in the expanded desktop block.
 const pageLinks = [
-  { href: "/", label: "home" },
-  { href: "/about", label: "about" },
-  { href: "/blog", label: "blog" },
-  { href: "/read", label: "read" },
-  { href: "/now", label: "now" },
+  { href: "/", label: "home", alt: "base camp" },
+  { href: "/about", label: "about", alt: "who's this" },
+  { href: "/blog", label: "blog", alt: "essays" },
+  { href: "/read", label: "read", alt: "library" },
+  { href: "/now", label: "now", alt: "lately" },
 ];
+
+// Roll: the label slides up and out while `alt` slides up into its place.
+// Both share one grid cell, so the link is as wide as the longer word and
+// nothing shifts on hover. Reduced motion: a plain swap, no sliding.
+const ROLL =
+  "col-start-1 row-start-1 transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none";
 
 const contactLinks = [
   { label: "iampedromedina@gmail.com", href: "mailto:iampedromedina@gmail.com" },
@@ -111,6 +118,27 @@ export function Nav() {
           style={{ backdropFilter: "blur(20px) saturate(160%)", WebkitBackdropFilter: "blur(20px) saturate(160%)" }}
         />
 
+        {/* ── "pm." mark, link home. In the bar on mobile and once scrolled; on desktop
+            at the top of the page it lines up with the two-column block instead. ── */}
+        <Link
+          href="/"
+          aria-label="Pedro Medina, home"
+          className={`pointer-events-auto absolute inset-y-0 left-5 md:left-12 lg:left-16 flex items-center font-serif text-[24px] leading-none ${FADE} ${FOCUS} ${iconColor} ${
+            compact ? "" : "md:invisible md:opacity-0"
+          }`}
+        >
+          pm.
+        </Link>
+        <Link
+          href="/"
+          aria-label="Pedro Medina, home"
+          className={`pointer-events-auto absolute hidden md:block top-12 lg:top-16 left-12 lg:left-16 font-serif text-[26px] leading-none ${FADE} ${FOCUS} ${expandedTextColor} ${
+            compact ? "invisible opacity-0 -translate-y-1" : "visible opacity-100 translate-y-0"
+          }`}
+        >
+          pm.
+        </Link>
+
         <nav aria-label="Main navigation" className="hidden md:block">
           {/* ── Desktop, top of the page: the original two-column block, top-right ── */}
           <div
@@ -118,8 +146,9 @@ export function Nav() {
               compact ? "invisible opacity-0 -translate-y-1" : "visible opacity-100 translate-y-0"
             }`}
           >
-            {/* Column 1: page links, in two columns of three so the block stays short */}
-            <div className="grid grid-rows-3 grid-flow-col gap-x-10 gap-y-[5px]">
+            {/* Column 1: page links, in two columns of three so the block stays short.
+                Hovering one dims the rest and rolls its word to the alternative. */}
+            <div className="group/links grid grid-rows-3 grid-flow-col gap-x-10 gap-y-[5px]">
               {pageLinks.map((link) => {
                 const isActive = pathname === link.href;
                 return (
@@ -127,12 +156,18 @@ export function Nav() {
                     key={link.href}
                     href={link.href}
                     aria-current={isActive ? "page" : undefined}
+                    aria-label={link.label}
                     style={{ fontWeight: 300, fontSize: "15px", letterSpacing: "0" }}
-                    className={`leading-relaxed transition-opacity duration-200 ${FOCUS} ${expandedTextColor} ${
-                      isActive ? "opacity-100" : "opacity-50 hover:opacity-100 focus-visible:opacity-100"
-                    }`}
+                    className={`group/link grid overflow-hidden leading-relaxed transition-opacity duration-200 ${FOCUS} ${expandedTextColor} ${
+                      isActive ? "opacity-100" : "opacity-50"
+                    } group-hover/links:opacity-30 hover:!opacity-100 focus-visible:!opacity-100`}
                   >
-                    {link.label}
+                    <span aria-hidden className={`${ROLL} group-hover/link:-translate-y-full group-focus-visible/link:-translate-y-full motion-reduce:group-hover/link:invisible`}>
+                      {link.label}
+                    </span>
+                    <span aria-hidden className={`${ROLL} translate-y-full group-hover/link:translate-y-0 group-focus-visible/link:translate-y-0 motion-reduce:translate-y-0 motion-reduce:invisible motion-reduce:group-hover/link:visible`}>
+                      {link.alt} ↓
+                    </span>
                   </Link>
                 );
               })}

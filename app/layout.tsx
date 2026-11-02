@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
@@ -11,10 +11,19 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+// Display serif for the hero name and the "pm." mark.
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-serif",
+});
+
 export const metadata: Metadata = {
   title: {
     default: "Pedro Medina",
-    template: "%s — Pedro Medina",
+    template: "%s | Pedro Medina",
   },
   description:
     "Building in tech. Learning in public.",
@@ -50,7 +59,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} ${instrumentSerif.variable}`}>
       <body
         className="bg-paper text-ink antialiased font-sans"
       >
