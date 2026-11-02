@@ -11,7 +11,7 @@ const LINK = "underline decoration-line underline-offset-[3px] hover:text-accent
 
 export default function PrivacyPage() {
   return (
-    <div className="max-w-layout mx-auto px-6 md:px-10 pt-28 md:pt-32 pb-8">
+    <div className="max-w-layout mx-auto px-6 md:px-10 pt-28 md:pt-32 pb-20 md:pb-28">
       <h1 className="text-display font-black tracking-tightest">privacy</h1>
       <p className="mt-6 text-[13px] text-muted">Last updated: October 2026</p>
       <div className="mt-10 max-w-[62ch] space-y-5 text-[17px] leading-relaxed">

@@ -3,25 +3,23 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useReducedMotion } from "framer-motion";
-import { ArrowUpRight } from "@phosphor-icons/react";
-
-const LINES = [
-  { text: "i am", muted: false },
-  { text: "pedro medina", muted: false },
-];
+import { ArrowDown, ArrowRight } from "@phosphor-icons/react";
+import { PILL_GLASS, PILL_SOLID } from "@/components/pill-link";
 
 /*
  * The name and subtitle are rendered visible from the server HTML (no entrance
  * animation), so a visitor sees whose site this is on first paint.
  *
- * Name size: bounded by width (12vw keeps "pedro medina" on one line on small
- * phones) and by height (16vh keeps the whole block above the fold on short
- * laptop screens), between 2.5rem and 11rem.
+ * Centred, in Instrument Serif (option 1 of the hero study in Paper,
+ * "iampedromedina — hero"): "i am" in italic over the name.
+ * Name size: bounded by width (17vw keeps "pedro medina" on one line on small
+ * phones; the serif is narrow) and by height (19vh keeps the whole block on
+ * short laptop screens), between 3rem and 11rem.
  *
  * The photo no longer bleeds to the edges: it sits inside a thin paper margin
  * (12px on phones, 24px from md), like a print laid on the page.
  */
-const NAME_FONT_SIZE = "clamp(2.5rem, min(12vw, 16vh), 11rem)";
+const NAME_FONT_SIZE = "clamp(3rem, min(17vw, 19vh), 11rem)";
 
 export function HeroSection() {
   const reduceMotion = useReducedMotion();
@@ -42,51 +40,49 @@ export function HeroSection() {
         sizes="100vw"
       />
 
-      {/* ── Scrim: darker at the bottom where the text sits ── */}
+      {/* ── Scrim: a little darker at the top (nav) and at the bottom, light in the middle ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 30%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0.08) 100%)",
+            "linear-gradient(to bottom, rgba(22,17,13,0.4) 0%, rgba(22,17,13,0.15) 40%, rgba(22,17,13,0.2) 60%, rgba(22,17,13,0.6) 100%)",
         }}
       />
 
-      {/* ── Display text — bottom-left ── */}
-      <div className="absolute bottom-10 left-6 right-6 md:right-auto md:bottom-14 md:left-10 lg:left-16 z-10 select-none">
+      {/* ── Display text — centred ── */}
+      <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center select-none">
         <h1
           aria-label="I am Pedro Medina, building in public"
+          className="font-serif text-white"
           style={{
             fontSize: NAME_FONT_SIZE,
             lineHeight: 0.9,
-            fontWeight: 800,
+            fontWeight: 400,
             letterSpacing: "-0.03em",
           }}
         >
-          {LINES.map((line) => (
-            <span
-              key={line.text}
-              className="block whitespace-nowrap"
-              style={{ color: line.muted ? "rgba(255,255,255,0.3)" : "#ffffff" }}
-            >
-              {line.text}
-            </span>
-          ))}
+          <span className="block italic">i am</span>
+          <span className="block whitespace-nowrap">pedro medina</span>
         </h1>
 
         {/* ── Subtitle ── */}
         <p
-          className="mt-4 max-w-[34ch] md:max-w-none md:whitespace-nowrap text-white/85"
+          className="mt-6 max-w-[36ch] md:max-w-[44ch] text-white/90"
           style={{
-            fontSize: "clamp(0.875rem, 1.5vw, 1.125rem)",
-            lineHeight: 1.5,
+            fontSize: "clamp(0.9375rem, 1.5vw, 1.125rem)",
+            lineHeight: 1.55,
             fontWeight: 400,
           }}
         >
           Studying computer science, working at a startup, and writing about what I learn along the way.
         </p>
 
-        {/* ── CTA links ── */}
-        <div className="flex items-center gap-6 mt-5">
+        {/* ── CTAs: writing first (solid), about as the quieter glass pill ── */}
+        <div className="flex flex-wrap items-center justify-center gap-3 mt-8">
+          <Link href="/blog" className={PILL_SOLID}>
+            Read my writing
+            <ArrowRight size={14} weight="bold" />
+          </Link>
           <a
             href="#about"
             onClick={(e) => {
@@ -95,18 +91,11 @@ export function HeroSection() {
                 behavior: reduceMotion ? "auto" : "smooth",
               });
             }}
-            className="inline-flex items-center gap-1 text-sm font-medium tracking-wide text-white/80 hover:text-white transition-colors"
+            className={PILL_GLASS}
           >
             About me
-            <ArrowUpRight size={14} weight="bold" />
+            <ArrowDown size={14} weight="bold" />
           </a>
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-1 text-sm font-medium tracking-wide text-white/80 hover:text-white transition-colors"
-          >
-            Read my writing
-            <ArrowUpRight size={14} weight="bold" />
-          </Link>
         </div>
       </div>
 

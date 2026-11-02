@@ -6,7 +6,7 @@ import { FadeIn, StaggerContainer, StaggerItem } from "@/components/animations/f
 export const metadata: Metadata = {
   alternates: { canonical: "/now" },
   title: "Now",
-  description: "What I'm doing now — updated every few months.",
+  description: "What I'm doing now, updated every few months.",
 };
 
 const LAST_UPDATED = "October 2026";
