@@ -15,12 +15,12 @@ const sideQuests = [
   "Training for a half marathon on December 13",
   "Writing one essay every week, here and on Substack",
   "Taking a solo trip to the mountains",
+  "Reading classic books",
 ];
 
 const learning = [
   "Self-image dictates your reality",
   "Learning to sell makes you a better person",
-  "Consume less, create more",
   "Give before you take",
 ];
 

@@ -19,7 +19,7 @@ export const SITE = {
 export const PAGES: { path: string; title: string; description: string }[] = [
   { path: "/", title: "Home", description: "Who Pedro is and his latest essays." },
   { path: "/blog", title: "Blog", description: "Every essay, newest first." },
-  { path: "/about", title: "About", description: "Pedro's story: computer science, sales, startups, running." },
+  { path: "/about", title: "About", description: "Who Pedro is, what he believes and what he keeps coming back to." },
   { path: "/now", title: "Now", description: "What Pedro is focused on right now." },
   { path: "/read", title: "Read", description: "Books and essays Pedro recommends." },
   { path: "/contact", title: "Contact", description: "How to reach Pedro." },
