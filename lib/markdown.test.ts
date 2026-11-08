@@ -45,6 +45,14 @@ describe("markdown pages", () => {
     expect(md).toContain("This weekend...");
     expect(md).toContain("Canonical: https://iampedromedina.com/blog/2026-10-26-grandma");
   });
+  it("about carries the real copy, not just a description", () => {
+    const md = pageMarkdown("/about")!;
+    expect(md.startsWith("# About")).toBe(true);
+    expect(md).toContain("## What I believe");
+    expect(md).toContain("https://iampedromedina.com/blog/2026-11-04-why-ironman");
+    expect(md).toContain("The boring version");
+    expect(md.length).toBeGreaterThan(500);
+  });
   it("known static pages resolve, unknown ones don't", () => {
     expect(pageMarkdown("/now")).toContain("# Now");
     expect(pageMarkdown("/nope")).toBeNull();

@@ -1,4 +1,5 @@
 import type { Post, PostMeta } from "./post-types";
+import { BELIEFS, BORING_VERSION, FAVORITES, WHO_I_AM } from "./about";
 import { PAGES, SITE, absolute } from "./site";
 
 /*
@@ -62,7 +63,31 @@ export function postMarkdown(post: Post): string {
   ].join("\n");
 }
 
+export function aboutMarkdown(): string {
+  return [
+    "# About",
+    "",
+    WHO_I_AM,
+    "",
+    "## What I believe",
+    "",
+    ...BELIEFS.map((b, i) => `${i + 1}. ${b.href ? `[${b.text}](${absolute(b.href)})` : b.text}`),
+    "",
+    "## Things I keep coming back to",
+    "",
+    ...FAVORITES.map((f) => `- ${f.title}, ${f.by}: ${f.note}`),
+    "",
+    `What I'm on right now: ${absolute("/now")}`,
+    "",
+    BORING_VERSION,
+    "",
+    `Full page: ${absolute("/about")}`,
+    "",
+  ].join("\n");
+}
+
 export function pageMarkdown(path: string): string | null {
+  if (path === "/about") return aboutMarkdown();
   const page = PAGES.find((p) => p.path === path);
   if (!page) return null;
   return [`# ${page.title}`, "", page.description, "", `Full page: ${absolute(path)}`, "", `More: ${absolute("/llms.txt")}`, ""].join("\n");
